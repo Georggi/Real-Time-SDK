@@ -118,6 +118,7 @@
 #include "Access/Include/ChannelStatistics.h"
 #include "Access/Include/IOCtlReactorCode.h"
 #include "Access/Include/OAuth2CredentialRenewal.h"
+#include "Access/Impl/DictionaryCallbackClient.h"
 
 namespace refinitiv {
 
@@ -368,6 +369,8 @@ public :
 	*/
 	void renewOAuth2Credentials(OAuth2CredentialRenewal&);
 	//@}
+
+    const RsslDataDictionary *getDictionary();
 
 private :
 

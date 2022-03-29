@@ -605,3 +605,8 @@ void OmmConsumerImpl::renewOAuth2Credentials(OAuth2CredentialRenewal& credential
 
 	_userLock.unlock();
 }
+
+const RsslDataDictionary *OmmConsumerImpl::getDictionary()
+{
+	return _pDictionaryCallbackClient->getDefaultDictionary()->getRsslDictionary();
+}

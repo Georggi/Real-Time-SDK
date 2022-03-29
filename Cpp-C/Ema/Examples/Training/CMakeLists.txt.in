@@ -4,6 +4,8 @@
 #      Training/CMakeLists.txt.in
 # 
 
+set (CMAKE_CXX_STANDARD 20)
+
 add_executable( @domainPrefix@@exampleNumber@ @sourceFileList@ )
 add_executable( @domainPrefix@@exampleNumber@_shared @sourceFileList@ )
 

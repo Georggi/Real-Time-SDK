@@ -322,7 +322,7 @@ else()
 
 	set_target_properties(librssl PROPERTIES OUTPUT_NAME "librssl")
 
-	target_link_libraries(librssl librssl_tmp)
+	target_link_libraries(librssl librssl_tmp ${CMAKE_DL_LIBS} rt)
 
     if (CMAKE_HOST_WIN32)
 		add_custom_command(TARGET librssl POST_BUILD

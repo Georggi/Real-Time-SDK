@@ -283,13 +283,13 @@ End of work around for WIN32 zlib library naming issue
 include(rcdevExternalUtils)
 
 if(NOT zlib_url)
-	set(zlib_url "https://www.zlib.net/zlib-1.2.11.tar.xz")
+	set(zlib_url "https://www.zlib.net/zlib-1.2.12.tar.xz")
 endif()
 if(NOT zlib_hash)
-	set(zlib_hash "SHA256=4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066")
+	set(zlib_hash "SHA256=7db46b8d7726232a621befaab4a1c870f00a90805511c0e0090441dac57def18")
 endif()
 if(NOT zlib_version)
-	set(zlib_version "1.2.11")
+	set(zlib_version "1.2.12")
 endif()
 	
 # If the option for using the system installed 

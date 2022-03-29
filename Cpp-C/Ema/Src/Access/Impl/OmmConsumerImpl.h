@@ -95,6 +95,7 @@ public:
 	
 	static RsslReactorCallbackRet oAuthCredentialCallback(RsslReactor* pRsslReactor, RsslReactorOAuthCredentialEvent* oAuthEvent);
 
+    const RsslDataDictionary *getDictionary();
 
 private :
 

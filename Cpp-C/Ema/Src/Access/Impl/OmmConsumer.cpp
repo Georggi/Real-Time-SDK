@@ -204,3 +204,8 @@ void OmmConsumer::renewOAuth2Credentials(OAuth2CredentialRenewal& credentials)
 {
 	_pImpl->renewOAuth2Credentials(credentials);
 }
+
+const RsslDataDictionary *OmmConsumer::getDictionary()
+{
+    return _pImpl->getDictionary();
+}
