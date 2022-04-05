@@ -165,7 +165,7 @@ public :
 		\remark Enables exception throwing as means of error reporting.
 		\remark This affects exceptions thrown from OmmConsumer methods
 	 */
-	OmmConsumer( const OmmConsumerConfig& config );
+	OmmConsumer( const OmmConsumerConfig& config, OmmLoggerClientBase* logger = 0  );
 
 	/** Create an OmmConsumer with OmmConsumerConfig. The OmmConsumer enables functionality
 	that includes subscribing, posting and distributing generic messages.
@@ -173,7 +173,7 @@ public :
 	\remark Enables exception throwing as means of error reporting.
 	\remark This affects exceptions thrown from OmmConsumer methods
 	*/
-	OmmConsumer(const OmmConsumerConfig& config, OmmConsumerClient& client, void* closure = 0 );
+	OmmConsumer(const OmmConsumerConfig& config, OmmConsumerClient& client, void* closure = 0, OmmLoggerClientBase* logger = 0 );
 
 	/** Create an OmmConsumer with OmmConsumerConfig with an OmmConsumerErrorClient that provides
 	select global errors via callbacks opposed to exception.The OmmConsumer enables functionality
@@ -182,7 +182,7 @@ public :
 	\remark Enables OmmConsumerErrorClient's callbacks as means of error reporting.
 	\remark This affects exceptions thrown from OmmConsumer methods
 	*/
-	OmmConsumer(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, void* closure = 0);
+	OmmConsumer(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, void* closure = 0, OmmLoggerClientBase* logger = 0 );
 
 	/** Create an OmmConsumer with OmmConsumerConfig with an OmmConsumerErrorClient that provides
 	select global errors via callbacks opposed to exception.The OmmConsumer enables functionality
@@ -191,7 +191,7 @@ public :
 	\remark Enables OmmConsumerErrorClient's callbacks as means of error reporting.
 	\remark This affects OmmConsumer methods that would throw exceptions otherwise.
 	*/
-	OmmConsumer(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* closure = 0);
+	OmmConsumer(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* closure = 0, OmmLoggerClientBase* logger = 0 );
 
 	/** Create an OmmConsumer with OmmConsumerConfig with an OmmConsumerErrorClient that provides
 		select global errors via callbacks opposed to exception.The OmmConsumer enables functionality
@@ -199,7 +199,7 @@ public :
 		\remark Enables OmmConsumerErrorClient's callbacks as means of error reporting.
 		\remark This affects OmmConsumer methods that would throw exceptions otherwise.
 	 */
-	OmmConsumer( const OmmConsumerConfig& config, OmmConsumerErrorClient& client );
+	OmmConsumer( const OmmConsumerConfig& config, OmmConsumerErrorClient& client, OmmLoggerClientBase* logger = 0 );
 
 	/** Create an OmmConsumer with OmmConsumerConfig with an OmmConsumerErrorClient that provides
 	select global errors via callbacks opposed to exception.The OmmConsumer enables functionality
@@ -208,7 +208,7 @@ public :
 	\remark Enables exception throwing as means of error reporting.
 	\remark This affects exceptions thrown from OmmConsumer methods
 	*/
-	OmmConsumer(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, void* closure = 0);
+	OmmConsumer(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, void* closure = 0, OmmLoggerClientBase* logger = 0 );
 
 	/** Create an OmmConsumer with OmmConsumerConfig with an OmmConsumerErrorClient that provides
 	select global errors via callbacks opposed to exception.The OmmConsumer enables functionality
@@ -217,7 +217,7 @@ public :
 	\remark Enables OmmConsumerErrorClient's callbacks as means of error reporting.
 	\remark This affects OmmConsumer methods that would throw exceptions otherwise.
 	*/
-	OmmConsumer( const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmConsumerErrorClient& errorClient, void* closure = 0 );
+	OmmConsumer( const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmConsumerErrorClient& errorClient, void* closure = 0, OmmLoggerClientBase* logger = 0 );
 
 	/** Create an OmmConsumer with OmmConsumerConfig with an OmmConsumerErrorClient that provides
 	select global errors via callbacks opposed to exception.The OmmConsumer enables functionality
@@ -227,7 +227,7 @@ public :
 	\remark Enables OmmConsumerErrorClient's callbacks as means of error reporting.
 	\remark This affects OmmConsumer methods that would throw exceptions otherwise.
 	*/
-	OmmConsumer(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* closure = 0);
+	OmmConsumer(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* closure = 0, OmmLoggerClientBase* logger = 0 );
 	//@}
 
 	///@name Destructor

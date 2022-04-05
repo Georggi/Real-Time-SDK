@@ -96,7 +96,7 @@ private:
   void handleMee(const char*) {}
   // all dummy ipplementation need to fix warning: [-Wreturn-type] 
   LoggerConfig& getActiveLoggerConfig() {static LoggerConfig dummyConfig; return dummyConfig;}
-  OmmLoggerClient& getOmmLoggerClient() {static int dummyLoger[10]; return reinterpret_cast<OmmLoggerClient&>(dummyLoger);}
+  OmmLoggerClientBase& getOmmLoggerClient() {static int dummyLoger[10]; return reinterpret_cast<OmmLoggerClient&>(dummyLoger);}
   ErrorClientHandler& getErrorClientHandler() {static int dummyHeader[10]; return reinterpret_cast<ErrorClientHandler&>(dummyHeader);}
   bool hasErrorClientHandler() const {return true;}
   EmaString& getInstanceName() const {static EmaString str; return str;}

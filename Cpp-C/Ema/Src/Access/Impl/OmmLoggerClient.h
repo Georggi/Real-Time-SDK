@@ -11,13 +11,10 @@
 
 #include "EmaString.h"
 #include "Mutex.h"
+#include "OmmLoggerClientBase.h"
 #include <stdio.h>
 
-namespace refinitiv {
-
-namespace ema {
-
-namespace access {
+namespace refinitiv::ema::access {
 
 static EmaString CR( "\n\t" );
 
@@ -36,17 +33,22 @@ struct LoggerClientFiles {
 	struct LoggerFile*	openFiles;
 };
 
-class OmmLoggerClient
+class OmmLoggerClient : public OmmLoggerClientBase
 {
 public :
 
-	enum Severity {
-		VerboseEnum = 0,	// output all log messages including information
-		SuccessEnum,		// indicates successful completion of a task / step
-		WarningEnum,		// indicates completion of a task / step; may require attention and correction
-		ErrorEnum,			// indicates failure while performing task / step; requires correction to proceed
-		NoLogMsgEnum		// do not print any log messages
-	};
+    using OmmLoggerClientBase::Severity;
+    using OmmLoggerClientBase::VerboseEnum;
+    using OmmLoggerClientBase::SuccessEnum;
+    using OmmLoggerClientBase::WarningEnum;
+    using OmmLoggerClientBase::ErrorEnum;
+    using OmmLoggerClientBase::NoLogMsgEnum;
+
+    EmaString				_logLine;
+
+    bool					_includeDateInLoggerOutput;
+
+    Severity				_severity;
 
 	enum LoggerType {
 		FileEnum = 0,
@@ -54,8 +56,6 @@ public :
 	};
 
 	static OmmLoggerClient* create( LoggerType loggerType, bool includeDate, Severity severity, const EmaString& fileName, UInt32 maxFileSize, UInt32 maxFileNumber );
-
-	static void destroy( OmmLoggerClient*& );
 
 	void log( const EmaString& instanceName, Severity , const EmaString& text );
 
@@ -65,27 +65,18 @@ public :
 
 	static char* timeString( bool includeDate = false );
 
+    ~OmmLoggerClient();
 private :
 
 	OmmLoggerClient( LoggerType loggerType, bool includeDate, Severity severity, const EmaString& fileName, UInt32 maxFileSize, UInt32 maxFileNumber );
-
-	virtual ~OmmLoggerClient();
 
 	void openLogFile( const EmaString&, UInt32 maxFileSize, UInt32 maxFileNumber );
 
 	void closeLogFile();
 
-	static Mutex			_printLock;
-
 	FILE*					_pOutput;
 
 	int						_clientFileIndex;
-
-	EmaString				_logLine;
-
-	bool					_includeDateInLoggerOutput;
-
-	Severity				_severity;
 
 	OmmLoggerClient();
 	OmmLoggerClient( const OmmLoggerClient& );
@@ -95,10 +86,6 @@ private :
 
 	void addLogLine( const EmaString& callbackClientName, Severity severity, const char* text );
 };
-
-}
-
-}
 
 }
 

@@ -50,7 +50,7 @@ public:
 
 	void printErrors( OmmLoggerClient::Severity severity = OmmLoggerClient::VerboseEnum );
 
-	void log( OmmLoggerClient*, OmmLoggerClient::Severity = OmmLoggerClient::VerboseEnum );
+	void log( OmmLoggerClientBase*, OmmLoggerClient::Severity = OmmLoggerClient::VerboseEnum );
 
 	void clear();
 

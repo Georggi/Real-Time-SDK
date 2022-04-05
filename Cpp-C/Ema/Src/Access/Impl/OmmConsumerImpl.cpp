@@ -20,65 +20,65 @@
 
 using namespace refinitiv::ema::access;
 
-OmmConsumerImpl::OmmConsumerImpl( const OmmConsumerConfig& config ) :
-	OmmBaseImpl( _activeConfig )
+OmmConsumerImpl::OmmConsumerImpl( const OmmConsumerConfig& config, OmmLoggerClientBase* pLoggerClient ) :
+	OmmBaseImpl( _activeConfig, pLoggerClient )
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize( config._pImpl );
 }
 
-OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, void* adminClosure) :
-	OmmBaseImpl(_activeConfig, adminClient, adminClosure)
+OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
+	OmmBaseImpl(_activeConfig, adminClient, adminClosure, pLoggerClient)
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize(config._pImpl);
 }
 
-OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure) :
-	OmmBaseImpl(_activeConfig, oAuthClient, adminClosure)
+OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
+	OmmBaseImpl(_activeConfig, oAuthClient, adminClosure, pLoggerClient)
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize(config._pImpl);
 }
 
-OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure) :
-	OmmBaseImpl(_activeConfig, adminClient, oAuthClient, adminClosure)
+OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
+	OmmBaseImpl(_activeConfig, adminClient, oAuthClient, adminClosure, pLoggerClient)
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize(config._pImpl);
 }
 
-OmmConsumerImpl::OmmConsumerImpl( const OmmConsumerConfig& config, OmmConsumerErrorClient& client ) :
-	OmmBaseImpl( _activeConfig, client )
+OmmConsumerImpl::OmmConsumerImpl( const OmmConsumerConfig& config, OmmConsumerErrorClient& client, OmmLoggerClientBase* pLoggerClient) :
+	OmmBaseImpl( _activeConfig, client, pLoggerClient )
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize( config._pImpl );
 }
 
-OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& client, void* adminClosure) :
-	OmmBaseImpl(_activeConfig, oAuthClient, client, adminClosure)
+OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& client, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
+	OmmBaseImpl(_activeConfig, oAuthClient, client, adminClosure, pLoggerClient)
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize(config._pImpl);
 }
 
-OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmConsumerErrorClient& errorClient, void* adminClosure ) :
-	OmmBaseImpl(_activeConfig, adminClient, errorClient, adminClosure)
+OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmConsumerErrorClient& errorClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient ) :
+	OmmBaseImpl(_activeConfig, adminClient, errorClient, adminClosure, pLoggerClient)
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize(config._pImpl);
 }
 
-OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* adminClosure) :
-	OmmBaseImpl(_activeConfig, adminClient, oAuthClient, errorClient, adminClosure)
+OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
+	OmmBaseImpl(_activeConfig, adminClient, oAuthClient, errorClient, adminClosure, pLoggerClient)
 {
 	_activeConfig.operationModel = config._pImpl->operationModel();
 	OmmBaseImpl::initialize(config._pImpl);
 }
 
 //only for unit test, internal use
-OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, bool unitTest) :
-	OmmBaseImpl(_activeConfig)
+OmmConsumerImpl::OmmConsumerImpl(const OmmConsumerConfig& config, bool unitTest, OmmLoggerClientBase* pLoggerClient) :
+	OmmBaseImpl(_activeConfig, pLoggerClient)
 {
 	if (unitTest)
 	{

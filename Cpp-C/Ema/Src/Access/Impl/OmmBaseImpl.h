@@ -130,7 +130,7 @@ public :
 
 	bool hasRestLoggingCallbackClient() const;
 
-	OmmLoggerClient& getOmmLoggerClient();
+    OmmLoggerClientBase& getOmmLoggerClient();
 
 	OmmOAuth2ConsumerClient& getOAuth2ConsumerClient();
 
@@ -194,17 +194,17 @@ protected:
 	friend class LoginItem;
 	friend class NiProviderLoginItem;
 
-	OmmBaseImpl( ActiveConfig& );
-	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, void* = 0);
-	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, void* = 0);
-	OmmBaseImpl(ActiveConfig&, OmmProviderClient&, void* = 0);
-	OmmBaseImpl(ActiveConfig&, OmmOAuth2ConsumerClient&, void* = 0);
-	OmmBaseImpl( ActiveConfig&, OmmConsumerErrorClient& );
-	OmmBaseImpl(ActiveConfig&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void* = 0);
-	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, OmmConsumerErrorClient&, void* = 0);
-	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void* = 0);
-	OmmBaseImpl( ActiveConfig&, OmmProviderErrorClient& );
-	OmmBaseImpl(ActiveConfig&, OmmProviderClient&, OmmProviderErrorClient&, void* = 0);
+	OmmBaseImpl( ActiveConfig&, OmmLoggerClientBase* = 0 );
+	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, void* = 0, OmmLoggerClientBase* = 0);
+	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, void* = 0, OmmLoggerClientBase* = 0);
+	OmmBaseImpl(ActiveConfig&, OmmProviderClient&, void* = 0, OmmLoggerClientBase* = 0);
+	OmmBaseImpl(ActiveConfig&, OmmOAuth2ConsumerClient&, void* = 0, OmmLoggerClientBase* = 0);
+	OmmBaseImpl( ActiveConfig&, OmmConsumerErrorClient&, OmmLoggerClientBase* = 0 );
+	OmmBaseImpl(ActiveConfig&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void* = 0, OmmLoggerClientBase* = 0);
+	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, OmmConsumerErrorClient&, void* = 0, OmmLoggerClientBase* = 0);
+	OmmBaseImpl(ActiveConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void* = 0, OmmLoggerClientBase* = 0);
+	OmmBaseImpl( ActiveConfig&, OmmProviderErrorClient&, OmmLoggerClientBase* = 0);
+	OmmBaseImpl(ActiveConfig&, OmmProviderClient&, OmmProviderErrorClient&, void* = 0, OmmLoggerClientBase* = 0);
 
 	virtual ~OmmBaseImpl();
 
@@ -278,7 +278,7 @@ protected:
 	OmmProviderClient&			_provAdminClient;
 	OmmOAuth2ConsumerClient&	_consOAuthClient;
 	void*						_adminClosure;
-	OmmLoggerClient*			_pLoggerClient;
+    OmmLoggerClientBase*		_pLoggerClient;
 	Pipe						_pipe;
 	UInt32						_pipeWriteCount;
 	bool						_atExit;
@@ -292,7 +292,7 @@ protected:
 	EmaList< TimeOut* >			_theTimeOuts;
 	bool						_bApiDispatchThreadStarted;
 	bool						_bUninitializeInvoked;
-
+    bool _hasExternalLogger;
 	
 
 private:

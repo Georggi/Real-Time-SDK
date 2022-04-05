@@ -56,7 +56,7 @@ static DummyConsClient defaultConsClient;
 static DummyProvClient defaultProvClient;
 static DummyOAuth2ConsClient defaultOAuthConsClient;
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -73,7 +73,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig) :
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount( 0 ),
 	_atExit( false ),
@@ -89,10 +88,15 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig) :
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = 0;
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	clearRsslErrorInfo( &_reactorDispatchErrorInfo );
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -109,7 +113,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -125,11 +128,15 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
-	
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -146,7 +153,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -162,11 +168,15 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
-
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oAuthClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -183,7 +193,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oA
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -199,11 +208,15 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oA
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
-
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminClient, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -220,7 +233,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminCli
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -236,12 +248,16 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminCli
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
-
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
 
-OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmConsumerErrorClient& client ) :
+OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmConsumerErrorClient& client, OmmLoggerClientBase* pLoggerClient ) :
 	_activeConfig( activeConfig ),
 	_userLock(),
 	_dispatchLock(),
@@ -258,7 +274,6 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmConsumerErrorClient& cl
 	_pDictionaryCallbackClient( 0 ),
 	_pItemCallbackClient( 0 ),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient( 0 ),
 	_pipe(),
 	_pipeWriteCount( 0 ),
 	_atExit( false ),
@@ -274,6 +289,11 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmConsumerErrorClient& cl
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = 0;
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler( client );
@@ -286,7 +306,7 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmConsumerErrorClient& cl
 	clearRsslErrorInfo( &_reactorDispatchErrorInfo );
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& client, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& client, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -303,7 +323,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oA
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -319,6 +338,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oA
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(client);
@@ -331,7 +355,7 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oA
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, OmmConsumerErrorClient& errorClient, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, OmmConsumerErrorClient& errorClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -348,7 +372,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -364,6 +387,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(errorClient);
@@ -376,7 +404,7 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminClient, OmmOAuth2ConsumerClient& oAuthClient, OmmConsumerErrorClient& errorClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -393,7 +421,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -409,6 +436,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(errorClient);
@@ -421,7 +453,7 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
-OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmProviderErrorClient& client ) :
+OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmProviderErrorClient& client, OmmLoggerClientBase* pLoggerClient ) :
 	_activeConfig( activeConfig ),
 	_userLock(),
 	_dispatchLock(),
@@ -438,7 +470,6 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmProviderErrorClient& cl
 	_pDictionaryCallbackClient( 0 ),
 	_pItemCallbackClient( 0 ),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient( 0 ),
 	_pipe(),
 	_pipeWriteCount( 0 ),
 	_atExit( false ),
@@ -454,6 +485,11 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmProviderErrorClient& cl
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = 0;
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler( client );
@@ -466,7 +502,7 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmProviderErrorClient& cl
 	clearRsslErrorInfo( &_reactorDispatchErrorInfo );
 }
 
-OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminClient, OmmProviderErrorClient& errorClient, void* adminClosure) :
+OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminClient, OmmProviderErrorClient& errorClient, void* adminClosure, OmmLoggerClientBase* pLoggerClient) :
 	_activeConfig(activeConfig),
 	_userLock(),
 	_dispatchLock(),
@@ -483,7 +519,6 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminCli
 	_pDictionaryCallbackClient(0),
 	_pItemCallbackClient(0),
 	_pRestLoggingCallbackClient(0),
-	_pLoggerClient(0),
 	_pipe(),
 	_pipeWriteCount(0),
 	_atExit(false),
@@ -499,6 +534,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminCli
 	_bUninitializeInvoked(false)
 {
 	_adminClosure = adminClosure;
+    if (pLoggerClient)
+    {
+        _pLoggerClient = pLoggerClient;
+        _hasExternalLogger = true;
+    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(errorClient);
@@ -1656,14 +1696,16 @@ void OmmBaseImpl::initialize( EmaConfigImpl* configImpl )
 		_userLock.lock();
 
 		readConfig( configImpl );
-
-		_pLoggerClient = OmmLoggerClient::create(
-			_activeConfig.loggerConfig.loggerType,
-			_activeConfig.loggerConfig.includeDateInLoggerOutput,
-			_activeConfig.loggerConfig.minLoggerSeverity,
-			_activeConfig.loggerConfig.loggerFileName,
-			_activeConfig.loggerConfig.maxFileSize,
-			_activeConfig.loggerConfig.maxFileNumber );
+        if (!_pLoggerClient)
+        {
+            _pLoggerClient = OmmLoggerClient::create(
+                    _activeConfig.loggerConfig.loggerType,
+                    _activeConfig.loggerConfig.includeDateInLoggerOutput,
+                    _activeConfig.loggerConfig.minLoggerSeverity,
+                    _activeConfig.loggerConfig.loggerFileName,
+                    _activeConfig.loggerConfig.maxFileSize,
+                    _activeConfig.loggerConfig.maxFileNumber );
+        }
 
 		readCustomConfig(configImpl);
 
@@ -2162,8 +2204,9 @@ void OmmBaseImpl::uninitialize( bool caughtExcep, bool calledFromInit )
 	_pipeReadEventFdsIdx = -1;
 #endif
 	_pipe.close();
-
-	OmmLoggerClient::destroy( _pLoggerClient );
+    if (!_hasExternalLogger){
+        delete _pLoggerClient;
+    }
 
 	_state = NotInitializedEnum;
 
@@ -2564,7 +2607,7 @@ RestLoggingCallbackClient& OmmBaseImpl::getRestLoggingCallbackClient()
 	return *_pRestLoggingCallbackClient;
 }
 
-OmmLoggerClient& OmmBaseImpl::getOmmLoggerClient()
+OmmLoggerClientBase& OmmBaseImpl::getOmmLoggerClient()
 {
 	return *_pLoggerClient;
 }

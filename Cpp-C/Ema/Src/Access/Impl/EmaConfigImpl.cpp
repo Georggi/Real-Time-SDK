@@ -1769,7 +1769,7 @@ void EmaConfigErrorList::printErrors( OmmLoggerClient::Severity severity )
 
 }
 
-void EmaConfigErrorList::log( OmmLoggerClient* logger, OmmLoggerClient::Severity severity )
+void EmaConfigErrorList::log( OmmLoggerClientBase* logger, OmmLoggerClient::Severity severity )
 {
 	for ( ListElement* p = _pList; p; p = p->next )
 		if ( p->error->severity() >= severity )

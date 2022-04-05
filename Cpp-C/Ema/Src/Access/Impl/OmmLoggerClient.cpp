@@ -7,6 +7,7 @@
  */
 
 #include "OmmLoggerClient.h"
+#include "OmmLoggerClientBase.h"
 #include "OmmConsumerImpl.h"
 #include "ExceptionTranslator.h"
 #include "OmmException.h"
@@ -18,7 +19,6 @@
 
 using namespace refinitiv::ema::access;
 
-Mutex OmmLoggerClient::_printLock;
 struct LoggerClientFiles OmmLoggerClient::clientFiles = { 0, 0, 0 };
 
 OmmLoggerClient::OmmLoggerClient( LoggerType loggerType, bool includeDate, Severity severity, const EmaString& fileName, UInt32 maxFileSize, UInt32 maxFileNumber ) :
@@ -50,15 +50,6 @@ OmmLoggerClient* OmmLoggerClient::create( LoggerType loggerType, bool includeDat
 	}
 
 	return NULL;
-}
-
-void OmmLoggerClient::destroy( OmmLoggerClient*& pClient )
-{
-	if ( pClient )
-	{
-		delete pClient;
-		pClient = 0;
-	}
 }
 
 void OmmLoggerClient::openLogFile( const EmaString& inFileName, UInt32 maxFileSize, UInt32 maxFileNumber )

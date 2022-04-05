@@ -1239,7 +1239,7 @@ void OmmServerBaseImpl::uninitialize(bool caughtException, bool calledFromInit)
 		}
 	}
 
-	OmmLoggerClient::destroy(_pLoggerClient);
+	delete _pLoggerClient;
 
 	_state = NotInitializedEnum;
 

@@ -39,23 +39,23 @@ public:
 
 	static RsslReactorCallbackRet tunnelStreamQueueMsgCallback( RsslTunnelStream*, RsslTunnelStreamQueueMsgEvent* );
 
-	OmmConsumerImpl( const OmmConsumerConfig& );
+	OmmConsumerImpl( const OmmConsumerConfig&, OmmLoggerClientBase*);
 
-	OmmConsumerImpl(const OmmConsumerConfig&, OmmOAuth2ConsumerClient&, void*);
+	OmmConsumerImpl(const OmmConsumerConfig&, OmmOAuth2ConsumerClient&, void*, OmmLoggerClientBase*);
 
-	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, void*);
+	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, void*, OmmLoggerClientBase*);
 
-	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, void*);
+	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, void*, OmmLoggerClientBase*);
 
-	OmmConsumerImpl( const OmmConsumerConfig&, OmmConsumerErrorClient& );
+	OmmConsumerImpl( const OmmConsumerConfig&, OmmConsumerErrorClient&, OmmLoggerClientBase*);
 
-	OmmConsumerImpl(const OmmConsumerConfig&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void*);
+	OmmConsumerImpl(const OmmConsumerConfig&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void*, OmmLoggerClientBase*);
 
-	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, OmmConsumerErrorClient&, void*);
+	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, OmmConsumerErrorClient&, void*, OmmLoggerClientBase*);
 
-	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void*);
+	OmmConsumerImpl(const OmmConsumerConfig&, OmmConsumerClient&, OmmOAuth2ConsumerClient&, OmmConsumerErrorClient&, void*, OmmLoggerClientBase*);
 
-	OmmConsumerImpl(const OmmConsumerConfig&, bool unittest); //for internal UnitTest only
+	OmmConsumerImpl(const OmmConsumerConfig&, bool unittest, OmmLoggerClientBase*); //for internal UnitTest only
 
 	virtual ~OmmConsumerImpl();
 

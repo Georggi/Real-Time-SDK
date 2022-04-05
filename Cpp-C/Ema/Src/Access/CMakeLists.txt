@@ -145,6 +145,7 @@ else()
             Impl/OmmIProviderConfigImpl.cpp Impl/OmmIProviderConfigImpl.h
             Impl/OmmIProviderImpl.cpp Impl/OmmIProviderImpl.h
             Impl/OmmLoggerClient.cpp Impl/OmmLoggerClient.h
+			Impl/OmmLoggerClientBase.cpp Include/OmmLoggerClientBase.h
 	    Impl/OmmJsonConverterException.cpp
 	    Impl/OmmJsonConverterExceptionImpl.cpp Impl/OmmJsonConverterExceptionImpl.h
             Impl/OmmMemoryExhaustionException.cpp
@@ -356,7 +357,7 @@ else()
             ../Rdm/Include/MfFieldType.h
             #Include
             ../Include/Ema.h
-            
+
     )
 
     if ( CMAKE_HOST_WIN32 )

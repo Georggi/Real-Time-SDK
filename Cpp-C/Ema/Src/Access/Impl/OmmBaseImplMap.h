@@ -38,7 +38,7 @@ namespace ema {
 
 namespace access {
 
-class OmmLoggerClient;
+class OmmLoggerClientBase;
 class ErrorClientHandler;
 
 class OmmCommonImpl
@@ -66,7 +66,7 @@ public:
 
 		virtual LoggerConfig& getActiveLoggerConfig() = 0;
 
-		virtual OmmLoggerClient& getOmmLoggerClient() = 0;
+		virtual OmmLoggerClientBase& getOmmLoggerClient() = 0;
 
 		virtual ErrorClientHandler& getErrorClientHandler() = 0;
 
