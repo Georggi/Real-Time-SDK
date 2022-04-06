@@ -85,14 +85,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmLoggerClientBase* pLogge
 	_pErrorClientHandler( 0 ),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = 0;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	clearRsslErrorInfo( &_reactorDispatchErrorInfo );
 }
 
@@ -125,14 +122,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
@@ -165,14 +159,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
@@ -205,14 +196,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oA
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
@@ -245,14 +233,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminCli
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	clearRsslErrorInfo(&_reactorDispatchErrorInfo);
 }
 
@@ -286,14 +271,11 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmConsumerErrorClient& cl
 	_pErrorClientHandler( 0 ),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = 0;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler( client );
@@ -335,14 +317,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmOAuth2ConsumerClient& oA
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(client);
@@ -384,14 +363,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(errorClient);
@@ -433,14 +409,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmConsumerClient& adminCli
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(errorClient);
@@ -482,14 +455,11 @@ OmmBaseImpl::OmmBaseImpl( ActiveConfig& activeConfig, OmmProviderErrorClient& cl
 	_pErrorClientHandler( 0 ),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = 0;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler( client );
@@ -531,14 +501,11 @@ OmmBaseImpl::OmmBaseImpl(ActiveConfig& activeConfig, OmmProviderClient& adminCli
 	_pErrorClientHandler(0),
 	_theTimeOuts(),
 	_bApiDispatchThreadStarted(false),
-	_bUninitializeInvoked(false)
+	_bUninitializeInvoked(false),
+    _pLoggerClient(pLoggerClient),
+    _hasExternalLogger(pLoggerClient)
 {
 	_adminClosure = adminClosure;
-    if (pLoggerClient)
-    {
-        _pLoggerClient = pLoggerClient;
-        _hasExternalLogger = true;
-    }
 	try
 	{
 		_pErrorClientHandler = new ErrorClientHandler(errorClient);

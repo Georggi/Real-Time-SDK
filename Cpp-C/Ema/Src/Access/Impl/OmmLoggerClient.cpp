@@ -7,7 +7,6 @@
  */
 
 #include "OmmLoggerClient.h"
-#include "OmmLoggerClientBase.h"
 #include "OmmConsumerImpl.h"
 #include "ExceptionTranslator.h"
 #include "OmmException.h"
