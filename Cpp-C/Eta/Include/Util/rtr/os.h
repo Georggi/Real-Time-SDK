@@ -64,6 +64,12 @@ extern "C" {
 
 
 /* Platform specific definitions for Linux 32 and 64-bit */
+#ifndef Linux
+# if defined(__linux__) || defined(__linux) || defined(linux) || defined(__gnu_linux__)
+#  define Linux
+# endif
+#endif
+
 #ifdef Linux
 	#define RTR_I64 long long
 	#define RTR_ULL(___val) (___val##ULL)
